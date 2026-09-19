@@ -1,134 +1,25 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'motion/react'
-import {
-  Search,
-  BookOpen,
-  Heart,
-  Download,
-  Check,
-  Sparkles,
-  Layers,
-  ArrowRight,
-} from 'lucide-react'
+import { ArrowRight, BookOpen, Check, Compass, Download, Search } from 'lucide-react'
 import { exploreDecks } from '@/lib/mock-data'
-import { Button } from '@/components/ui/button'
+import { getSubjectTokens } from '@/lib/subject-colors'
 import { cn } from '@/lib/utils'
 
 export function ExploreView() {
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [filter, setFilter] = useState('All')
-
+  const [search, setSearch] = useState('')
   const categories = ['All', 'Medicine', 'Law', 'Computer Science', 'Economics']
+  const filtered = useMemo(() => exploreDecks.filter((deck) => (filter === 'All' || deck.subject === filter) && (!search.trim() || `${deck.title} ${deck.subject} ${deck.author}`.toLowerCase().includes(search.toLowerCase()))), [filter, search])
 
-  const handleImport = (title: string) => {
+  const importDeck = (title: string) => {
     setCopiedId(title)
-    setTimeout(() => setCopiedId(null), 2000)
+    window.setTimeout(() => setCopiedId(null), 1800)
   }
 
-  return (
-    <motion.main
-      initial={{ opacity: 0, x: 12 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -12 }}
-      transition={{ duration: 0.2 }}
-      className="mx-auto max-w-[1240px] px-4 pb-28 pt-6 md:px-8 md:pt-8 lg:px-10"
-    >
-      <div className="max-w-2xl">
-        <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-          Public Knowledge Base
-        </p>
-        <h1 className="mt-1 font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
-          Find something worth mastering.
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Teacher-reviewed and high-yield student decks from academic communities across the Philippines.
-        </p>
-      </div>
-
-      {/* Categories */}
-      <div className="mt-8 flex items-center gap-2 overflow-x-auto pb-2">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={cn(
-              'rounded-xl px-4 py-2 text-xs font-bold transition-all whitespace-nowrap',
-              filter === cat
-                ? 'bg-primary text-primary-foreground shadow-xs'
-                : 'bg-card border border-border text-muted-foreground hover:text-foreground'
-            )}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      {/* Explore Grid */}
-      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
-        {exploreDecks
-          .filter((d) => filter === 'All' || d.subject === filter)
-          .map((deck) => (
-            <div
-              key={deck.title}
-              className="flex flex-col justify-between rounded-[24px] border border-border bg-card p-6 shadow-xs transition-all hover:border-primary/40 hover:shadow-md"
-            >
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="rounded-md bg-secondary px-2.5 py-0.5 text-[10px] font-bold text-primary">
-                    {deck.subject}
-                  </span>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Heart className="size-3.5 text-ember fill-ember" />
-                    <span>{deck.likes}</span>
-                  </div>
-                </div>
-
-                <h3 className="mt-4 font-display text-xl font-bold text-foreground">
-                  {deck.title}
-                </h3>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Curated by {deck.author}
-                </p>
-
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {deck.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-md bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
-                <span className="text-xs font-bold text-muted-foreground">
-                  {deck.cards} Flashcards · {deck.retention}% Avg Recall
-                </span>
-
-                <Button
-                  size="sm"
-                  variant={copiedId === deck.title ? 'secondary' : 'default'}
-                  onClick={() => handleImport(deck.title)}
-                  className="gap-1.5"
-                >
-                  {copiedId === deck.title ? (
-                    <>
-                      <Check className="size-3.5 text-success" /> Added to Library
-                    </>
-                  ) : (
-                    <>
-                      <Download className="size-3.5" /> Clone Deck
-                    </>
-                  )}
-                </Button>
-              </div>
-            </div>
-          ))}
-      </div>
-    </motion.main>
-  )
+  return <motion.main initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mx-auto w-full max-w-[1320px] px-4 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-6 sm:px-7 sm:pt-8 lg:px-10 lg:pb-14"><header className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end"><div className="max-w-2xl"><p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-primary">Explore study sets</p><h1 className="mt-2 max-w-[19ch] text-3xl font-extrabold tracking-[-0.055em] text-foreground sm:text-5xl">Find a useful starting point.</h1><p className="mt-3 max-w-[58ch] text-base leading-relaxed text-muted-foreground">Browse sample study sets by subject, then bring a useful one into your own review queue.</p></div><Link href="/play" className="inline-flex min-h-11 items-center gap-2 self-start rounded-[13px] border border-border bg-card px-4 text-sm font-extrabold text-foreground hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"><Compass className="size-4" /> Visit Play</Link></header><section className="mt-7 fetch-surface rounded-[20px] p-3 sm:p-4"><div className="relative"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><label htmlFor="explore-search" className="sr-only">Search study sets</label><input id="explore-search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search subjects, topics, or authors" className="h-11 w-full rounded-[12px] border border-input bg-background pl-10 pr-3 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-primary" /></div><div className="mt-3 flex gap-2 overflow-x-auto pb-1">{categories.map((category) => <button type="button" key={category} aria-pressed={filter === category} onClick={() => setFilter(category)} className={cn('min-h-10 shrink-0 rounded-[11px] border px-3 text-xs font-extrabold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary', filter === category ? 'border-primary bg-primary/10 text-primary' : 'border-border bg-card text-muted-foreground hover:text-foreground')}>{category}</button>)}</div></section><div className="mt-8 flex items-end justify-between gap-3"><div><p className="text-[11px] font-extrabold uppercase tracking-[0.15em] text-primary">Starting points</p><h2 className="mt-1 text-xl font-extrabold text-foreground">{filtered.length} sets to browse</h2></div><span className="text-xs font-bold text-muted-foreground">Sample library</span></div>{filtered.length ? <div className="mt-4 grid gap-3 md:grid-cols-2">{filtered.map((deck) => { const tokens = getSubjectTokens(deck.subject); const added = copiedId === deck.title; return <article key={deck.title} className="group relative overflow-hidden rounded-[19px] border border-border bg-card p-5 transition-[transform,border-color,box-shadow] hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-[0_14px_30px_rgba(20,33,61,.08)]"><span className={cn('absolute inset-y-0 left-0 w-1', tokens.cardBar)} aria-hidden="true" /><div className="flex items-start justify-between gap-3 pl-2"><div><span className={tokens.eyebrow}>{deck.subject}</span><h3 className="mt-3 font-display text-xl font-extrabold tracking-[-0.03em] text-foreground">{deck.title}</h3><p className="mt-1 text-sm text-muted-foreground">{deck.author}</p></div><BookOpen className="size-5 shrink-0 text-muted-foreground" /></div><div className="mt-5 flex flex-wrap gap-2 pl-2">{deck.tags.map((tag) => <span key={tag} className="rounded-[8px] bg-muted px-2 py-1 text-[11px] font-bold text-muted-foreground">{tag}</span>)}</div><div className="mt-5 flex items-center justify-between gap-3 border-t border-border/70 pt-4 pl-2"><div><p className="text-xs font-extrabold text-foreground">{deck.cards} cards</p><p className="mt-1 text-xs text-muted-foreground">{deck.retention}% average recall</p></div><button type="button" onClick={() => importDeck(deck.title)} className={cn('inline-flex min-h-10 items-center gap-2 rounded-[11px] px-3 text-xs font-extrabold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary', added ? 'bg-success/12 text-success' : 'bg-primary text-primary-foreground hover:bg-primary/90')}>{added ? <><Check className="size-4" /> Added</> : <><Download className="size-4" /> Add to library</>}</button></div></article> })}</div> : <div className="fetch-surface mt-4 flex flex-col items-center rounded-[20px] border-dashed p-10 text-center"><Image src="/mascot/fetch-wave.png" alt="Fetch mascot waving" width={82} height={82} className="size-20 object-contain" /><p className="mt-3 font-display text-base font-extrabold text-foreground">No sets in this view</p><p className="mt-1 text-sm text-muted-foreground">Try another subject or clear the search.</p><button type="button" onClick={() => { setFilter('All'); setSearch('') }} className="mt-4 inline-flex min-h-10 items-center gap-2 rounded-[11px] border border-border bg-card px-3 text-xs font-extrabold text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">Clear filters <ArrowRight className="size-4" /></button></div>}</motion.main>
 }

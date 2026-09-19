@@ -9,43 +9,66 @@ import {
   Search,
   Brain,
   Swords,
-  Trophy,
   Settings,
-  Sparkles,
+  Plus,
 } from 'lucide-react'
-import { EagleMark } from '@/components/brand/eagle-mark'
+import { FetchMark } from '@/components/brand/fetch-mark'
+import { useFocusTools } from '@/lib/focus-context'
+import { sounds } from '@/lib/sound-effects'
+import { initialUser } from '@/lib/mock-data'
 import { cn } from '@/lib/utils'
-import { initialUser, initialDecks } from '@/lib/mock-data'
 
 interface SidebarProps {
   onOpenSettings?: () => void
+  onOpenRankModal?: () => void
 }
 
-export function Sidebar({ onOpenSettings }: SidebarProps) {
+export function Sidebar({ onOpenSettings, onOpenRankModal }: SidebarProps) {
   const pathname = usePathname()
+  const { openActionMenu } = useFocusTools()
 
   const navItems = [
     { href: '/home', label: 'Home', icon: Home },
     {
       href: '/decks',
-      label: 'My decks',
+      label: 'Study',
       icon: Library,
-      badge: initialDecks.length.toString(),
     },
+    { href: '/create', label: 'Create', icon: Plus },
+    { href: '/tutor', label: 'Tutor', icon: Brain },
     { href: '/explore', label: 'Explore', icon: Search },
-    { href: '/tutor', label: 'AI tutor', icon: Brain, isAi: true },
-    { href: '/play', label: 'Live play', icon: Swords },
+    { href: '/play', label: 'Play', icon: Swords },
   ]
 
   return (
-    <aside className="fixed inset-y-0 left-0 hidden w-[240px] flex-col border-r border-sidebar-border bg-sidebar px-4 py-5 text-sidebar-foreground lg:flex z-30 select-none">
+    <aside className="fixed inset-y-0 left-0 hidden w-[248px] flex-col border-r border-sidebar-border bg-sidebar px-4 py-6 text-sidebar-foreground lg:flex z-30 select-none">
       {/* Brand Header */}
       <div className="px-2">
-        <EagleMark asLink href="/home" statusDot />
+        <FetchMark
+          asLink
+          href="/home"
+          textClassName="text-sidebar-foreground"
+        />
+      </div>
+
+      {/* Quick Action Button (Desktop Standalone Trigger) */}
+      <div className="mt-7 px-1">
+        <button
+          type="button"
+          onClick={() => {
+            sounds.playFlip()
+            openActionMenu()
+          }}
+          data-fetch-action-trigger="true"
+          className="flex h-11 w-full items-center justify-center gap-2 rounded-[14px] bg-primary text-primary-foreground text-sm font-bold shadow-[0_8px_22px_rgba(47,102,246,0.24)] transition-all duration-150 ease-out hover:bg-primary/90 hover:shadow-md active:scale-[0.98] active:duration-75 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar"
+        >
+          <Plus className="size-4 stroke-[2.5]" />
+          <span>Quick action</span>
+        </button>
       </div>
 
       {/* Navigation Links */}
-      <nav className="mt-8 flex flex-col gap-1.5" aria-label="App Navigation">
+      <nav className="mt-7 flex flex-col gap-1.5" aria-label="App Navigation">
         {navItems.map((item) => {
           const isActive = pathname === item.href
           return (
@@ -53,68 +76,49 @@ export function Sidebar({ onOpenSettings }: SidebarProps) {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex h-11 items-center gap-3 rounded-xl px-3.5 text-sm font-medium transition-all duration-150 active:scale-[0.98]',
+                'flex h-11 items-center gap-3 rounded-[14px] px-3.5 text-sm font-medium transition-all duration-150 ease-out active:scale-[0.98] active:duration-75 outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2',
                 isActive
-                  ? 'bg-sidebar-accent text-primary font-bold shadow-xs'
-                  : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/70 hover:text-sidebar-foreground'
+                  ? 'bg-primary text-white font-bold shadow-[0_8px_18px_rgba(47,102,246,0.24)]'
+                  : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground border border-transparent'
               )}
             >
               <item.icon
                 className={cn(
                   'size-[18px] shrink-0',
-                  isActive ? 'text-primary' : 'text-sidebar-foreground/60'
+                    isActive ? 'text-white' : 'text-sidebar-foreground/60'
                 )}
                 strokeWidth={isActive ? 2.5 : 2}
               />
               <span className="truncate">{item.label}</span>
-              {item.badge && (
-                <span
-                  className={cn(
-                    'ml-auto rounded-full px-2 py-0.5 text-[11px] font-bold',
-                    isActive
-                      ? 'bg-primary/10 text-primary'
-                      : 'bg-muted text-muted-foreground'
-                  )}
-                >
-                  {item.badge}
-                </span>
-              )}
-              {item.isAi && (
-                <span className="ml-auto text-[10px] font-bold text-ember bg-ember/15 px-1.5 py-0.5 rounded-md">
-                  AI
-                </span>
-              )}
             </Link>
           )
         })}
       </nav>
 
-      {/* Gamification Progress Widget */}
-      <div className="mt-6 border-t border-sidebar-border pt-5">
-        <p className="px-3 text-[10px] font-bold uppercase tracking-[0.16em] text-sidebar-foreground/45">
-          Your flight rank
-        </p>
-        <div className="mt-2.5 rounded-2xl bg-primary p-4 text-primary-foreground shadow-sm">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold">Level {initialUser.level}</span>
-            <Trophy className="size-4 text-ember fill-ember" />
-          </div>
-          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-primary-foreground/20">
-            <div
-              className="h-full rounded-full bg-ember transition-all duration-500"
-              style={{ width: '72%' }}
-            />
-          </div>
-          <p className="mt-2 text-[11px] font-medium text-primary-foreground/80">
-            {initialUser.xpToNextLevel} XP to {initialUser.levelTitle}
+      {/* Today at a glance */}
+      <div className="mt-7 border-t border-sidebar-border pt-6">
+        <div className="flex items-center justify-between px-3">
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-sidebar-foreground/45">
+            Today
           </p>
+          <span className="text-[10px] font-semibold text-sidebar-foreground/45">steady pace</span>
+        </div>
+        <div
+          className="mt-2.5 rounded-[16px] border border-sidebar-border bg-sidebar-accent/50 p-3.5 text-sidebar-foreground"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-sidebar-foreground">18 cards due</span>
+            <span className="text-[11px] font-semibold text-sidebar-foreground/60">~9 min</span>
+          </div>
+          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10"><div className="h-full w-[42%] rounded-full bg-ember" /></div>
+          <p className="mt-2 text-[11px] font-medium text-sidebar-foreground/60">One focused session is a good start.</p>
         </div>
       </div>
 
       {/* User Profile Card */}
       <button
         onClick={onOpenSettings}
-        className="mt-auto flex items-center gap-3 rounded-2xl border border-transparent p-2.5 text-left transition-colors hover:bg-sidebar-accent hover:border-sidebar-border"
+        className="mt-auto flex items-center gap-3 rounded-2xl border border-transparent p-2.5 text-left transition-all duration-150 ease-out hover:bg-sidebar-accent hover:border-sidebar-border active:scale-[0.98] active:duration-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
         aria-label="User profile settings"
       >
         <div className="flex size-9 items-center justify-center rounded-full bg-secondary font-display text-xs font-bold text-primary ring-2 ring-primary/20">

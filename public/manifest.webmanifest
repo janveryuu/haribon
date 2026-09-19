@@ -1,12 +1,14 @@
 {
-  "name": "Haribon — Study sharp. Soar higher.",
-  "short_name": "Haribon",
+  "name": "Fetch — What you're about to forget.",
+  "short_name": "Fetch",
   "description": "Active recall, FSRS spaced repetition, and focused study momentum.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F6F7FB",
   "theme_color": "#2547E0",
   "icons": [
+    { "src": "/mascot/fetch-logo.png", "sizes": "1024x1024", "type": "image/png" },
+    { "src": "/icon.png", "sizes": "512x512", "type": "image/png" },
     { "src": "/apple-icon.png", "sizes": "180x180", "type": "image/png" },
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }
   ]

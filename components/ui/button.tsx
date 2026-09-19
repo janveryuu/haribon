@@ -4,27 +4,29 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-xl border border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-[14px] border border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap transition-[transform,background-color,border-color,opacity,box-shadow] duration-150 ease-out outline-none select-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98] active:duration-75 active:ease-out disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 cursor-pointer",
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground shadow-[0_10px_25px_rgba(37,71,224,.22)] hover:bg-primary/90 hover:-translate-y-0.5',
+        default:
+          'bg-primary text-primary-foreground shadow-[0_8px_22px_rgba(47,102,246,0.22)] hover:bg-primary/92 active:shadow-sm',
         outline:
-          'border-border bg-card text-foreground hover:bg-muted hover:border-primary/30',
+          'border-border bg-card text-foreground hover:bg-muted/70 hover:border-primary/40 active:bg-muted',
         secondary:
-          'bg-secondary text-primary hover:bg-secondary/80',
+          'bg-secondary text-primary hover:bg-secondary/80 active:bg-secondary/90',
         ghost:
-          'hover:bg-muted hover:text-foreground',
+          'hover:bg-muted/70 hover:text-foreground active:bg-muted',
         destructive:
-          'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20',
-        link: 'text-primary underline-offset-4 hover:underline',
-        ember: 'bg-ember text-foreground font-bold shadow-[0_10px_25px_rgba(242,169,59,.25)] hover:bg-ember/90 hover:-translate-y-0.5',
+          'bg-destructive/10 text-destructive hover:bg-destructive/20 active:bg-destructive/25 focus-visible:ring-destructive/40',
+        link: 'text-primary underline-offset-4 hover:underline active:opacity-80',
+        ember:
+          'bg-ember text-[#14213d] font-bold shadow-[0_8px_22px_rgba(238,157,53,0.22)] hover:bg-ember/92 active:shadow-sm',
       },
       size: {
         default: 'h-11 px-4 gap-2 text-sm',
         sm: 'h-9 px-3 gap-1.5 text-xs rounded-lg',
         lg: 'h-12 px-6 gap-2.5 text-base',
-        icon: 'size-10 rounded-full',
+        icon: 'size-10 rounded-[14px]',
         'icon-sm': 'size-8 rounded-lg',
         'icon-lg': 'size-12 rounded-2xl',
       },

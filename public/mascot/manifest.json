@@ -1,0 +1,15 @@
+{
+  "version": "2.2",
+  "name": "Fetch coach poses",
+  "description": "The canonical Fetch puppy pose library. Use selectively to support the study loop.",
+  "poses": {
+    "wave": { "src": "/mascot/coach-wave.webp", "alt": "Fetch waving hello", "use": "welcome and first-run moments" },
+    "study": { "src": "/mascot/coach-study.webp", "alt": "Fetch studying with a notebook", "use": "library and creation" },
+    "point": { "src": "/mascot/coach-point.webp", "alt": "Fetch pointing to a lesson", "use": "tutor explanations" },
+    "thinking": { "src": "/mascot/coach-thinking.webp", "alt": "Fetch thinking through a problem", "use": "difficult cards and help" },
+    "idea": { "src": "/mascot/coach-idea.webp", "alt": "Fetch with an idea", "use": "creation suggestions" },
+    "thumbsUp": { "src": "/mascot/coach-thumbs-up.webp", "alt": "Fetch giving a thumbs up", "use": "small wins" },
+    "celebrate": { "src": "/mascot/coach-celebrate.webp", "alt": "Fetch celebrating", "use": "mastery and completion" },
+    "rest": { "src": "/mascot/coach-rest.webp", "alt": "Fetch taking a study break", "use": "recovery and breaks" }
+  }
+}

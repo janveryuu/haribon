@@ -1,18 +1,21 @@
-# 🦅 Haribon
+# 🐾 Fetch
 
 > **Active Recall & Spaced Repetition Study Platform**  
-> Designed for deep retention, high-yield learning, and student mastery.
+> What you're about to forget. Designed for deep retention, high-yield learning, and student mastery.
 
 ---
 
 ## 📖 Overview
 
-**Haribon** (inspired by the majestic Philippine Eagle) is an intelligent study platform that combines cognitive science with modern interface design to help students master challenging academic topics.
+**Fetch** is an intelligent study platform combining cognitive science with modern interface design to help students master challenging academic topics. Never let a card go unretrieved.
+
+For the complete product and backend handoff, start with [FETCH_BACKEND_HANDOFF.md](./FETCH_BACKEND_HANDOFF.md). It is the current source of truth for route behavior, mocked boundaries, proposed database schema, API contract, realtime Play architecture, privacy requirements, and migration order.
 
 Key learning pillars:
 - **Active Recall Engine:** Stimulate memory retrieval rather than passive recognition.
 - **FSRS-Guided Scheduling:** Dynamic review intervals calculated from forgetting curves.
 - **Socratic AI Tutor:** An AI study companion that breaks down complex concepts and tests comprehension on the spot.
+- **Pack Rank Progression:** Gamified study levels from New Pup to Pack Leader.
 - **Multiplayer Study Arena:** Timed live battles with peer leaderboards and streak tracking.
 - **Multi-Source Material Ingestion:** Rapid conversion of lecture slides, handwritten notes, and outlines into flashcard decks.
 
@@ -54,7 +57,7 @@ Key learning pillars:
    ```
 
 4. **Open in browser:**
-   Navigate to [http://localhost:3000](http://localhost:3000) or [http://localhost:3000/home](http://localhost:3000/home).
+   Navigate to [http://localhost:3001](http://localhost:3001) or [http://localhost:3001/home](http://localhost:3001/home).
 
 ---
 
@@ -73,20 +76,20 @@ Key learning pillars:
 ├── components/
 │   ├── app/               # Main application view components
 │   │   ├── app-shell.tsx  # Responsive desktop sidebar & mobile navigation
-│   │   ├── sidebar.tsx    # Desktop navigation & Flight Rank widget
+│   │   ├── sidebar.tsx    # Desktop navigation & Pack Rank widget
 │   │   ├── topbar.tsx     # ⌘K Search trigger, streak, theme switcher
 │   │   ├── dashboard-view.tsx
 │   │   ├── deck-creator-view.tsx
 │   │   ├── deck-list-view.tsx
 │   │   ├── explore-view.tsx
 │   │   └── live-play-view.tsx
-│   ├── brand/             # Haribon eagle logo mark and badges
+│   ├── brand/             # Official Fetch mascot logo components
 │   ├── shared/            # Retention rings, 3D flip study sheet, command palette
 │   └── ui/                # Accessible design system primitives
 ├── lib/
 │   ├── mock-data.ts       # Structured type definitions & initial study data
 │   └── utils.ts           # Class merging utilities
-└── public/                # Static assets & icons
+└── public/                # Static assets, mascot illustrations & icons
 ```
 
 ---

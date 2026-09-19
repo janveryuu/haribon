@@ -1,0 +1,18 @@
+{
+  "assets": [
+    {
+      "file": "mitochondrion-fieldbook.png",
+      "usage": "Next study session hero and biology recall preview",
+      "alt": "Editorial mitochondrion illustration with ATP accents",
+      "aspectRatio": "1:1",
+      "routes": ["/home", "/"]
+    },
+    {
+      "file": "fetch-coach-fieldbook.png",
+      "usage": "Selective encouragement and recovery moments",
+      "alt": "Fetch puppy beside an open study notebook",
+      "aspectRatio": "4:3",
+      "routes": ["/home"]
+    }
+  ]
+}

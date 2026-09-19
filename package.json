@@ -1,11 +1,12 @@
 {
-  "name": "haribon-app",
+  "name": "fetch-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "node --test tests/music-player.test.mjs tests/stage4-harden-pass.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",

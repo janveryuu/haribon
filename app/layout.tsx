@@ -1,36 +1,46 @@
 import { Analytics } from '@vercel/analytics/next'
-import { Inter, Manrope } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
+import { FocusToolsProvider } from '@/lib/focus-context'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' })
+const geist = Geist({ subsets: ['latin'], variable: '--font-geist' })
+const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 export const metadata: Metadata = {
-  title: 'Haribon — Study sharp. Soar higher.',
+  title: {
+    default: "Fetch — What you're about to forget.",
+    template: '%s · Fetch',
+  },
   description:
-    'Adaptive flashcards, FSRS spaced repetition, focused study sessions, and momentum that lasts. Free forever for every student.',
-  applicationName: 'Haribon',
+    'Adaptive flashcards, FSRS spaced repetition, focused study sessions, and momentum that lasts. Never let a card go unretrieved.',
+  applicationName: 'Fetch',
   manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Haribon',
+    title: 'Fetch',
   },
   icons: {
-    icon: '/icon.svg',
-    apple: '/apple-icon.png',
+    icon: [
+      { url: '/icon.png?v=fetch-main-3', type: 'image/png' },
+      { url: '/favicon.ico?v=fetch-main-3', sizes: 'any' },
+      { url: '/icon.svg?v=fetch-main-3', type: 'image/svg+xml' },
+    ],
+    apple: '/apple-icon.png?v=fetch-main-3',
+    shortcut: '/icon.png?v=fetch-main-3',
   },
 }
 
 export const viewport: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F6F7FB' },
-    { media: '(prefers-color-scheme: dark)', color: '#0B1B4D' },
+    { media: '(prefers-color-scheme: light)', color: '#F7F9FC' },
+    { media: '(prefers-color-scheme: dark)', color: '#0C1426' },
   ],
   width: 'device-width',
   initialScale: 1,
+  viewportFit: 'cover',
   userScalable: true,
 }
 
@@ -41,10 +51,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-background" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/icon.png?v=fetch-main-3" type="image/png" />
+        <link rel="shortcut icon" href="/icon.png?v=fetch-main-3" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-icon.png?v=fetch-main-3" />
+      </head>
       <body
-        className={`${inter.variable} ${manrope.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${geist.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground`}
       >
-        {children}
+        <FocusToolsProvider>
+          {children}
+        </FocusToolsProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

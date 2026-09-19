@@ -15,12 +15,13 @@ import {
   ScanLine,
   Upload,
   X,
-  Sparkles,
+  CircleCheck,
   Zap,
   BookOpen,
   CheckCircle2,
 } from 'lucide-react'
-import { EagleMark } from '@/components/brand/eagle-mark'
+import Image from 'next/image'
+import { FetchMark } from '@/components/brand/fetch-mark'
 import { RetentionRing } from '@/components/shared/retention-ring'
 import { Button } from '@/components/ui/button'
 import { StudySheet } from '@/components/shared/study-sheet'
@@ -74,9 +75,17 @@ function InteractiveHeroStudyCard({ onStartFullStudy }: { onStartFullStudy: () =
         >
           {/* Front (Question) */}
           <div className="absolute inset-0 flex flex-col items-center justify-center rounded-[20px] bg-background/80 p-5 text-center border border-border/70 [backface-visibility:hidden]">
-            <span className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-primary">
-              Active Recall Question
-            </span>
+            <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-primary">
+              <Image
+                src="/illustrations/mitochondrion-fieldbook.png"
+                alt=""
+                width={40}
+                height={40}
+                className="size-9 rounded-xl object-cover ring-1 ring-primary/15"
+                aria-hidden="true"
+              />
+              <span>Active Recall Question</span>
+            </div>
             <h3 className="font-display text-lg sm:text-xl font-bold leading-snug text-foreground">
               What is the primary purpose of the electron transport chain?
             </h3>
@@ -155,7 +164,7 @@ function RetentionVisual() {
           Mitochondrial membrane potential
         </p>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Haribon spaced this card forward after 3 consecutive confident recalls.
+          Fetch spaced this card forward after 3 consecutive confident recalls.
         </p>
         <div className="mt-4 flex items-center justify-between border-t border-border pt-3 text-xs font-semibold">
           <span className="text-muted-foreground">Next scheduled review</span>
@@ -182,20 +191,20 @@ function MomentumVisual() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-semibold text-muted-foreground">
-            Today&apos;s Momentum
+            Weekly recall quality
           </p>
           <p className="mt-1 font-display text-4xl font-extrabold text-foreground">
-            640 <span className="text-lg text-ember">XP</span>
+            78<span className="text-lg text-ember">%</span>
           </p>
         </div>
         <span className="rounded-xl bg-secondary px-3.5 py-2 text-xs font-bold text-primary">
-          Level 7 · Trailblazer
+          +12% this week
         </span>
       </div>
 
       <div
         className="mt-8 flex h-36 items-end gap-2.5 sm:gap-3.5"
-        aria-label="Weekly XP activity chart"
+        aria-label="Weekly recall quality chart"
       >
         {bars.map((item, i) => (
           <div
@@ -203,7 +212,7 @@ function MomentumVisual() {
             className="flex h-full flex-1 flex-col items-center justify-end gap-2"
           >
             <div
-              className={`haribon-chart-bar w-full rounded-t-lg transition-all ${
+              className={`fetch-chart-bar w-full rounded-t-lg transition-all ${
                 item.highlight
                   ? 'bg-ember'
                   : item.active
@@ -244,7 +253,7 @@ function UploadVisual() {
           </p>
         </div>
         <div className="mt-6 rounded-lg bg-muted p-2 text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-          <Sparkles className="size-3.5 text-primary" /> Auto-extracts key definitions
+          <CircleCheck className="size-3.5 text-primary" /> Auto-extracts key definitions
         </div>
       </div>
 
@@ -289,7 +298,7 @@ export function LandingPage() {
     {
       eyebrow: 'Adaptive Review',
       title: 'Every card earns its next appearance.',
-      body: 'Cards adapt to what you actually know — not what the deck assumes. Haribon keeps difficult ideas close and lets mastered material breathe.',
+      body: 'Cards adapt to what you actually know — not what the deck assumes. Fetch keeps difficult ideas close and lets mastered material breathe.',
       visual: <RetentionVisual />,
     },
     {
@@ -301,7 +310,7 @@ export function LandingPage() {
     {
       eyebrow: 'Visible Momentum',
       title: 'Effort you can actually see and feel.',
-      body: 'Study minutes turn into XP. Daily consistency becomes an unbreakable streak. The dashboard makes progress concrete without turning education into noisy distractions.',
+      body: 'Recall quality and consistent practice make progress visible. The dashboard keeps the next useful action close without turning education into noisy distractions.',
       visual: <MomentumVisual />,
     },
     {
@@ -320,7 +329,7 @@ export function LandingPage() {
           className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 lg:px-8"
           aria-label="Main navigation"
         >
-          <EagleMark asLink href="/" />
+          <FetchMark asLink href="/" />
 
           <div className="hidden items-center gap-8 text-sm font-semibold text-muted-foreground md:flex">
             <a
@@ -434,16 +443,16 @@ export function LandingPage() {
       >
         <div className="max-w-2xl">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-4 py-1.5 text-xs font-bold text-primary">
-            <Sparkles className="size-3.5" /> Free forever · No paywalled learning
+            <CircleCheck className="size-3.5" /> Free forever · No paywalled learning
           </span>
 
           <h1 className="mt-6 text-balance font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-[-0.055em] text-foreground">
-            Study sharp.<br />
-            <span className="text-primary">Soar higher.</span>
+            Fetch what you&apos;re<br />
+            <span className="text-primary">about to forget.</span>
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-            Haribon turns studying into a system that actually works — flashcards that adapt, spaced repetition powered by FSRS, Pomodoro-paced focus, and XP for every minute you put in.
+            Fetch turns studying into a system that actually works — adaptive flashcards, spaced repetition powered by FSRS, focused sessions, and a clear next step whenever you sit down.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -467,11 +476,11 @@ export function LandingPage() {
           >
             <span className="inline-flex items-center rounded-full bg-secondary px-3 py-1.5 text-xs font-bold text-primary">
               <Flame className="mr-1 inline size-3.5 text-ember fill-ember" aria-hidden="true" />
-              12-day streak
+              12-day rhythm
             </span>
             <span className="inline-flex items-center rounded-full bg-secondary px-3 py-1.5 text-xs font-bold text-primary">
               <Zap className="mr-1 inline size-3.5 text-ember" />
-              Lv 7 · 1,840 XP
+              18 cards due
             </span>
             <span className="inline-flex items-center rounded-full bg-secondary px-3 py-1.5 text-xs font-bold text-primary">
               <CheckCircle2 className="mr-1 inline size-3.5 text-success" />
@@ -485,26 +494,41 @@ export function LandingPage() {
 
         {/* Right Column: Interactive Hero Widgets */}
         <div className="relative min-w-0 lg:pl-6">
-          {/* Focus Timer Mini Floating Bar */}
-          <div className="mb-4 ml-auto flex w-full items-center justify-between rounded-[20px] bg-deep p-4 text-deep-foreground shadow-[0_22px_60px_rgba(11,27,77,.12)] sm:w-60 lg:mr-4">
-            <button
-              onClick={toggleTimer}
-              className="flex size-9 items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 transition-colors"
-              aria-label={timerRunning ? 'Pause focus timer' : 'Start focus timer'}
-            >
-              {timerRunning ? (
-                <Pause className="size-4 text-ember" />
-              ) : (
-                <Play className="size-4 text-white fill-white" />
-              )}
-            </button>
-            <div className="text-right">
-              <span className="block font-display text-xl font-bold tracking-tight">
-                {formatTimer(timerSeconds)}
+          <div className="mb-4 flex flex-col sm:flex-row items-center justify-between gap-3 lg:mr-4">
+            <div className="hidden sm:flex items-center gap-2.5 rounded-[20px] border border-border bg-card/80 px-3.5 py-2 shadow-xs backdrop-blur-sm">
+              <Image
+                src="/mascot/fetch-ball.png"
+                alt="Fetch Pup"
+                width={36}
+                height={36}
+                className="size-8 object-contain"
+              />
+              <span className="text-xs font-bold text-foreground">
+                Good boy energy for your memory.
               </span>
-              <span className="text-xs text-deep-foreground/70 font-medium">
-                {timerRunning ? 'Session active' : 'Focus session'}
-              </span>
+            </div>
+
+            {/* Focus Timer Mini Floating Bar */}
+            <div className="flex w-full items-center justify-between rounded-[20px] bg-deep p-4 text-deep-foreground shadow-[0_22px_60px_rgba(11,27,77,.12)] sm:w-60">
+              <button
+                onClick={toggleTimer}
+                className="flex size-9 items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 transition-colors"
+                aria-label={timerRunning ? 'Pause focus timer' : 'Start focus timer'}
+              >
+                {timerRunning ? (
+                  <Pause className="size-4 text-ember" />
+                ) : (
+                  <Play className="size-4 text-white fill-white" />
+                )}
+              </button>
+              <div className="text-right">
+                <span className="block font-display text-xl font-bold tracking-tight">
+                  {formatTimer(timerSeconds)}
+                </span>
+                <span className="text-xs text-deep-foreground/70 font-medium">
+                  {timerRunning ? 'Session active' : 'Focus session'}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -519,10 +543,10 @@ export function LandingPage() {
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="max-w-2xl">
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
-              Inside Haribon
+              Inside Fetch
             </p>
             <h2 className="mt-3 text-balance font-display text-3xl font-extrabold tracking-tight sm:text-5xl text-foreground">
-              What studying with Haribon actually looks like.
+              What studying with Fetch actually looks like.
             </h2>
           </div>
 
@@ -557,7 +581,7 @@ export function LandingPage() {
             A sustainable rhythm
           </p>
           <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-5xl text-foreground">
-            Your daily flight plan.
+            Your daily study cadence.
           </h2>
         </div>
 
@@ -616,7 +640,7 @@ export function LandingPage() {
                 Show up daily.
               </h3>
               <p className="mt-4 max-w-md leading-relaxed text-deep-foreground/75 text-sm sm:text-base">
-                Keep the daily promise small. Haribon remembers the long arc — even when real life costs you a day with streak freeze protection.
+                Keep the daily promise small. Fetch remembers the long arc — even when real life costs you a day with streak freeze protection.
               </p>
             </div>
 
@@ -665,7 +689,7 @@ export function LandingPage() {
                 href="/home"
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary px-7 text-sm font-bold text-primary-foreground shadow-[0_10px_30px_rgba(37,71,224,.3)] transition-all hover:-translate-y-0.5 hover:bg-primary/95"
               >
-                Claim your first XP <ArrowRight className="size-4" aria-hidden="true" />
+                Start your first study session <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
             </div>
           </div>
@@ -701,7 +725,7 @@ export function LandingPage() {
       {/* Footer */}
       <footer className="border-t border-border bg-card">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <EagleMark />
+          <FetchMark />
           <div className="flex flex-wrap gap-6 text-xs font-semibold text-muted-foreground">
             <Link href="/home" className="hover:text-foreground">App Dashboard</Link>
             <Link href="/decks" className="hover:text-foreground">Decks</Link>
@@ -709,7 +733,7 @@ export function LandingPage() {
             <Link href="/tutor" className="hover:text-foreground">AI Tutor</Link>
           </div>
           <p className="max-w-md text-xs leading-5 text-muted-foreground sm:text-right">
-            Free, forever, for every student. Inspired by the Philippine eagle (Haribon).
+            Free, forever, for every student. Never let a card go unretrieved.
           </p>
         </div>
       </footer>
